@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-An interactive HTML single-file app visualizing Benchling's GTM/Marketing Operations tech stack. Built for Nhat (Senior Manager, Marketing Systems & Operations at Benchling). The current deliverable is `gtm-mops-v3.html`.
+An interactive HTML single-file app visualizing a GTM/Marketing Operations tech stack. The current deliverable is `gtm-mops-v3.html`.
 
 ---
 
@@ -205,10 +205,9 @@ type: 'future' → blue  — emerging/next
 
 ## Context on Owner
 
-- **Nhat** — Senior Manager, Marketing Systems & Operations, Benchling
-- Background: 9+ yrs MOps across B2B SaaS (Intercom, Malwarebytes), Marketo Certified Expert
+- Senior Manager, Marketing Systems & Operations
+- Background: 9+ yrs MOps across B2B SaaS, Marketo Certified Expert
 - Stack expertise: Marketo, Salesforce, Workato, Snowflake, Sigma, Clay, LeanData, RampMetrics
-- Director-driven development style: describes outcomes, Claude Code executes implementation
 - Goal for this artifact: use as a strategic communication tool for leadership and cross-functional alignment
 
 ---

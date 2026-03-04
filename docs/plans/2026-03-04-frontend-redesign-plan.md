@@ -333,7 +333,7 @@ The HTML structure is largely the same as gtm-mops-v3.html but with these change
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GTM / MOps Tech Stack — Benchling 2026</title>
+  <title>GTM / MOps Tech Stack — 2026</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Lato:wght@300;400;700&display=swap">
@@ -346,7 +346,7 @@ The HTML structure is largely the same as gtm-mops-v3.html but with these change
 <!-- Header: same content as v3, no structural changes -->
 <header>
   <div class="header-left">
-    <div class="eyebrow">Benchling · Marketing Systems & Operations</div>
+    <div class="eyebrow">Marketing Systems & Operations</div>
     <h1>GTM / <em>MOps</em> Tech Stack</h1>
     <div class="header-meta">
       <span class="pill active">2025–2026</span>
