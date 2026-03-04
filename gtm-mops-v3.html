@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GTM / MOps Tech Stack — Benchling 2025</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Lato:wght@300;400;700&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg:       #07080b;
+  --surface:  #0e1017;
+  --s2:       #141720;
+  --s3:       #1b1f2c;
+  --border:   rgba(255,255,255,0.06);
+  --border2:  rgba(255,255,255,0.11);
+  --text:     #dde0ea;
+  --muted:    #606680;
+  --dim:      #383d52;
+
+  --p1: #4f8ef7;   /* Plan & Orchestrate  — blue */
+  --p2: #29c4a0;   /* Data & Intelligence — teal */
+  --p3: #e0735a;   /* Engage & Activate   — coral */
+  --p4: #b07ef8;   /* Measure & Optimize  — violet */
+}
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Lato', sans-serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE overlay ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 0;
+}
+
+/* ── HEADER ── */
+header {
+  position: relative; z-index: 1;
+  padding: 32px 44px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex; align-items: flex-end; gap: 0; justify-content: space-between;
+}
+.header-left {}
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 2.5px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 8px;
+}
+h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 38px; letter-spacing: 1.5px;
+  line-height: 1; color: var(--text);
+}
+h1 em { font-style: normal; color: var(--p1); }
+.header-meta {
+  display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
+  margin-top: 10px;
+}
+.pill {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; padding: 3px 9px;
+  border-radius: 3px;
+  background: var(--s2); border: 1px solid var(--border2);
+  color: var(--muted); letter-spacing: 0.5px;
+}
+.pill.active { color: var(--text); border-color: var(--border2); }
+
+.header-right {
+  text-align: right;
+}
+.legend-row {
+  display: flex; gap: 18px; justify-content: flex-end; align-items: center;
+  flex-wrap: wrap;
+}
+.leg {
+  display: flex; align-items: center; gap: 6px;
+  font-size: 11px; color: var(--muted);
+  font-family: 'DM Mono', monospace;
+}
+.leg-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
+.legend-hint {
+  margin-top: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px; color: var(--dim);
+  letter-spacing: 0.4px;
+}
+
+/* ── MCP BANNER ── */
+.mcp-bar {
+  position: relative; z-index: 1;
+  margin: 20px 44px 0;
+  border-radius: 8px;
+  background: linear-gradient(90deg, rgba(79,142,247,0.07), rgba(176,126,248,0.07));
+  border: 1px solid rgba(176,126,248,0.18);
+  padding: 12px 20px;
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.mcp-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 1.5px; text-transform: uppercase;
+  color: #a78bfa; white-space: nowrap;
+}
+.mcp-desc { font-size: 11.5px; color: var(--muted); flex: 1; min-width: 200px; }
+.mcp-chain {
+  display: flex; align-items: center; gap: 5px; flex-wrap: wrap; margin-left: auto;
+}
+.mc { font-family: 'DM Mono', monospace; font-size: 10px; padding: 3px 8px;
+  border-radius: 3px; border: 1px solid; white-space: nowrap; }
+.mc-core { background: rgba(79,142,247,0.12); color: #7aabff; border-color: rgba(79,142,247,0.25); }
+.mc-mcp  { background: rgba(176,126,248,0.12); color: #c4a5fc; border-color: rgba(176,126,248,0.28); }
+.mc-tool { background: rgba(41,196,160,0.10); color: #29c4a0; border-color: rgba(41,196,160,0.22); }
+.mc-arr  { color: var(--dim); font-size: 11px; }
+
+/* ── BANNER UPGRADES ── */
+.mcp-bar {
+  flex-direction: column !important;
+  gap: 12px !important;
+  align-items: stretch !important;
+}
+.mcp-bar-top {
+  display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+}
+.mcp-agents-row {
+  display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  padding-top: 10px;
+  border-top: 1px solid rgba(176,126,248,0.12);
+}
+.mcp-agent-type {
+  display: flex; align-items: center; gap: 8px; flex: 1; min-width: 200px;
+}
+.mcp-agent-sep {
+  color: var(--dim); font-size: 13px; flex-shrink: 0;
+}
+.agent-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px; padding: 3px 8px; border-radius: 3px;
+  white-space: nowrap; flex-shrink: 0; letter-spacing: 0.4px;
+}
+.agent-badge.listener { background: rgba(41,196,160,0.12); color: #29c4a0; border: 1px solid rgba(41,196,160,0.25); }
+.agent-badge.topic    { background: rgba(79,142,247,0.12); color: #7aabff; border: 1px solid rgba(79,142,247,0.25); }
+.agent-badge.creator  { background: rgba(176,126,248,0.12); color: #c4a5fc; border: 1px solid rgba(176,126,248,0.25); }
+.agent-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
+
+/* ── PIPELINE STRIP ── */
+.pipeline-wrap {
+  position: relative; z-index: 1;
+  padding: 28px 44px 0;
+  overflow-x: auto;
+}
+.pipeline {
+  display: flex; align-items: stretch;
+  gap: 0; min-width: max-content;
+}
+
+/* connector */
+.connector {
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  width: 44px; flex-shrink: 0; padding-top: 4px;
+}
+.conn-line { flex: 1; width: 1px; background: var(--border2); }
+.conn-arrow {
+  width: 0; height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 7px solid var(--dim);
+  transform: rotate(-90deg);
+  flex-shrink: 0;
+}
+/* horizontal flow */
+.connector { flex-direction: row; width: 36px; height: auto; }
+.conn-line { flex: 1; height: 1px; width: auto; }
+.conn-arrow { transform: none; border-top: 5px solid transparent; border-bottom: 5px solid transparent; border-left: 7px solid var(--dim); border-right: none; }
+
+/* ── PHASE CARD ── */
+.phase {
+  width: 200px; flex-shrink: 0;
+  border-radius: 10px;
+  border: 1.5px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+  overflow: hidden;
+  position: relative;
+}
+.phase:hover { transform: translateY(-4px); box-shadow: 0 14px 44px rgba(0,0,0,0.55); }
+.phase.open {
+  border-color: var(--phase-color);
+  box-shadow: 0 0 0 1px var(--phase-color), 0 14px 44px rgba(0,0,0,0.6);
+}
+
+.phase-accent {
+  height: 3px; width: 100%;
+}
+.phase-inner { padding: 16px 16px 14px; }
+.phase-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--muted);
+  margin-bottom: 10px;
+}
+.phase-icon { font-size: 24px; margin-bottom: 8px; display: block; }
+.phase-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 19px; letter-spacing: 0.8px;
+  line-height: 1.15; color: var(--text);
+}
+.phase-subtitle {
+  font-size: 10.5px; color: var(--muted);
+  margin-top: 4px; line-height: 1.4;
+}
+.phase-cats {
+  margin-top: 12px;
+  display: flex; flex-wrap: wrap; gap: 4px;
+}
+.cat-chip {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; padding: 2px 6px;
+  border-radius: 3px; color: var(--muted);
+  background: var(--s2); border: 1px solid var(--border);
+  letter-spacing: 0.3px;
+}
+.phase-tool-count {
+  margin-top: 12px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; color: var(--dim);
+}
+.phase-tool-count span { font-weight: 500; }
+
+/* ── DETAIL PANEL ── */
+.detail {
+  display: none;
+  position: relative; z-index: 1;
+  margin: 16px 44px 0;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  overflow: hidden;
+  animation: panelIn 0.22s ease;
+}
+.detail.open { display: block; }
+
+@keyframes panelIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Panel header */
+.panel-head {
+  display: flex; align-items: center; gap: 14px;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--border);
+}
+.panel-accent-bar {
+  width: 3px; height: 36px; border-radius: 2px; flex-shrink: 0;
+}
+.panel-icon { font-size: 26px; }
+.panel-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px; letter-spacing: 1px;
+}
+.panel-subtitle { font-size: 11.5px; color: var(--muted); margin-top: 1px; }
+.panel-close {
+  margin-left: auto;
+  background: none; border: 1px solid var(--border2);
+  color: var(--muted); border-radius: 5px;
+  padding: 5px 13px; font-size: 11px;
+  cursor: pointer; transition: all 0.15s;
+  font-family: 'DM Mono', monospace;
+}
+.panel-close:hover { color: var(--text); border-color: var(--border2); }
+
+/* Tab nav */
+.tab-nav {
+  display: flex; gap: 0;
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  overflow-x: auto;
+}
+.tab-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px; letter-spacing: 0.8px; text-transform: uppercase;
+  padding: 11px 16px; cursor: pointer;
+  background: none; border: none;
+  color: var(--muted);
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: var(--text); }
+.tab-btn.active { color: var(--text); border-bottom-color: var(--phase-color, #4f8ef7); }
+
+/* Tab content */
+.tab-body { display: none; padding: 24px; }
+.tab-body.active { display: block; }
+
+/* ── TOOLS TAB ── */
+.subcats { display: flex; flex-direction: column; gap: 20px; }
+.subcat {}
+.subcat-head {
+  display: flex; align-items: center; gap: 8px;
+  cursor: pointer; user-select: none; margin-bottom: 10px;
+}
+.subcat-toggle {
+  width: 16px; height: 16px; border-radius: 3px;
+  border: 1px solid var(--border2);
+  background: var(--s2); color: var(--muted);
+  font-size: 9px; display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0; transition: all 0.15s;
+  font-family: 'DM Mono', monospace;
+}
+.subcat.expanded .subcat-toggle { background: var(--s3); color: var(--text); }
+.subcat-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--muted);
+}
+.subcat-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; color: var(--dim);
+  margin-left: auto;
+}
+.subcat-body {
+  display: none;
+  padding-left: 24px;
+}
+.subcat.expanded .subcat-body { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 8px; }
+
+.tool-card {
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 7px; padding: 11px 14px;
+  transition: border-color 0.15s;
+}
+.tool-card:hover { border-color: var(--border2); }
+.tool-top { display: flex; align-items: center; gap: 7px; margin-bottom: 5px; }
+.tool-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+.tool-name { font-size: 13px; font-weight: 700; color: var(--text); }
+.tool-tag {
+  margin-left: auto;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; padding: 1px 5px;
+  border-radius: 3px;
+}
+.tool-tag.core { background: rgba(79,142,247,0.12); color: #7aabff; border: 1px solid rgba(79,142,247,0.2); }
+.tool-tag.cross { background: rgba(224,115,90,0.1); color: #e8886f; border: 1px solid rgba(224,115,90,0.2); }
+.tool-desc { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
+/* ── GAPS TAB ── */
+.gaps-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+.gap-card {
+  background: var(--s2); border-radius: 7px; padding: 14px;
+  border: 1px solid var(--border);
+}
+.gap-type {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; letter-spacing: 1px; text-transform: uppercase;
+  padding: 2px 7px; border-radius: 3px; display: inline-block; margin-bottom: 8px;
+}
+.gap-type.gap     { background: rgba(251,191,36,0.1); color: #fbbf24; border: 1px solid rgba(251,191,36,0.2); }
+.gap-type.opp     { background: rgba(41,196,160,0.1); color: #29c4a0; border: 1px solid rgba(41,196,160,0.2); }
+.gap-type.risk    { background: rgba(224,115,90,0.1); color: #e0735a; border: 1px solid rgba(224,115,90,0.2); }
+.gap-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ── TRENDS TAB ── */
+.trends-list { display: flex; flex-direction: column; gap: 12px; }
+.trend-item {
+  display: flex; gap: 12px; align-items: flex-start;
+  background: var(--s2); border-radius: 7px; padding: 13px 16px;
+  border: 1px solid var(--border);
+}
+.trend-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; padding: 2px 7px; border-radius: 3px;
+  white-space: nowrap; margin-top: 2px; flex-shrink: 0;
+  letter-spacing: 0.5px;
+}
+.trend-badge.now    { background: rgba(41,196,160,0.1); color: #29c4a0; border: 1px solid rgba(41,196,160,0.2); }
+.trend-badge.future { background: rgba(79,142,247,0.1); color: #7aabff; border: 1px solid rgba(79,142,247,0.2); }
+.trend-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ── AI TAB ── */
+.ai-list { display: flex; flex-direction: column; gap: 12px; }
+.ai-item {
+  background: var(--s2); border: 1px solid var(--border);
+  border-radius: 7px; padding: 14px 16px;
+}
+.ai-badges { display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 8px; }
+.ai-badge {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px; padding: 2px 7px; border-radius: 3px;
+  letter-spacing: 0.4px;
+}
+.ab-mcp    { background: rgba(176,126,248,0.12); color: #c4a5fc; border: 1px solid rgba(176,126,248,0.25); }
+.ab-agent  { background: rgba(236,72,153,0.1);   color: #f472b6; border: 1px solid rgba(244,114,182,0.2); }
+.ab-code   { background: rgba(41,196,160,0.1);   color: #29c4a0; border: 1px solid rgba(41,196,160,0.2); }
+.ab-claude { background: rgba(79,142,247,0.1);   color: #7aabff; border: 1px solid rgba(79,142,247,0.2); }
+.ai-text { font-size: 12px; color: var(--muted); line-height: 1.6; }
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  margin: 28px 44px 40px;
+  padding: 14px 20px;
+  border-radius: 8px;
+  background: var(--s2); border: 1px solid var(--border);
+  display: flex; gap: 24px; flex-wrap: wrap; align-items: center;
+}
+.fstat {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px; color: var(--muted);
+  display: flex; align-items: center; gap: 6px;
+}
+.fstat strong { color: var(--text); font-weight: 500; }
+.fsrc { margin-left: auto; font-size: 10px; color: var(--dim); font-family: 'DM Mono', monospace; }
+</style>
+</head>
+<body>
+
+<!-- ═══ HEADER ═══════════════════════════════════════════════════ -->
+<header>
+  <div class="header-left">
+    <div class="eyebrow">Benchling · Marketing Systems & Operations</div>
+    <h1>GTM / <em>MOps</em> Tech Stack</h1>
+    <div class="header-meta">
+      <span class="pill active">2025–2026</span>
+      <span class="pill">4 Phases</span>
+      <span class="pill">19 Tools</span>
+      <span class="pill">Click phase to expand</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="legend-row">
+      <div class="leg"><div class="leg-dot" style="background:#4f8ef7"></div>Plan &amp; Orchestrate</div>
+      <div class="leg"><div class="leg-dot" style="background:#29c4a0"></div>Data &amp; Intelligence</div>
+      <div class="leg"><div class="leg-dot" style="background:#e0735a"></div>Engage &amp; Activate</div>
+      <div class="leg"><div class="leg-dot" style="background:#b07ef8"></div>Measure &amp; Optimize</div>
+    </div>
+    <div class="legend-hint">Sources: Chief Martec · Demand Gen Report · demandDrive 2026 · revlogic 2026 · MOps-Apalooza 2025</div>
+  </div>
+</header>
+
+<!-- ═══ AI ORCHESTRATION LAYER BANNER ══════════════════════════ -->
+<div class="mcp-bar">
+  <div class="mcp-bar-top">
+    <div class="mcp-label">⬡ AI Orchestration Layer — runs across all 4 phases</div>
+    <div class="mcp-chain">
+      <div class="mc mc-core">Claude</div><div class="mc-arr">→</div>
+      <div class="mc mc-mcp">MCP Server</div><div class="mc-arr">⇄</div>
+      <div class="mc mc-tool">Marketo</div><div class="mc-arr">+</div>
+      <div class="mc mc-tool">Salesforce</div><div class="mc-arr">+</div>
+      <div class="mc mc-tool">Snowflake</div><div class="mc-arr">+</div>
+      <div class="mc mc-tool">Clay</div><div class="mc-arr">+</div>
+      <div class="mc mc-tool">Airtable</div>
+    </div>
+  </div>
+  <div class="mcp-agents-row">
+    <div class="mcp-agent-type">
+      <span class="agent-badge listener">👂 Listener Agent</span>
+      <span class="agent-desc">Monitors signals: intent spikes, lifecycle stalls, health score drops, routing failures</span>
+    </div>
+    <div class="mcp-agent-sep">→</div>
+    <div class="mcp-agent-type">
+      <span class="agent-badge topic">💡 Topic Agent</span>
+      <span class="agent-desc">Generates content briefs, segment hypotheses, and ICP drift summaries from signals</span>
+    </div>
+    <div class="mcp-agent-sep">→</div>
+    <div class="mcp-agent-type">
+      <span class="agent-badge creator">✦ Creator Agent</span>
+      <span class="agent-desc">Drafts emails, talking points, Sigma dashboards, Workato recipes — ready for human approval</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ PIPELINE ════════════════════════════════════════════════ -->
+<div class="pipeline-wrap">
+  <div class="pipeline" id="pipeline"></div>
+</div>
+
+<!-- ═══ DETAIL PANEL ════════════════════════════════════════════ -->
+<div class="detail" id="detailPanel">
+  <div class="panel-head">
+    <div class="panel-accent-bar" id="panelBar"></div>
+    <div class="panel-icon" id="panelIcon"></div>
+    <div>
+      <div class="panel-title" id="panelTitle"></div>
+      <div class="panel-subtitle" id="panelSub"></div>
+    </div>
+    <button class="panel-close" onclick="closePanel()">✕ close</button>
+  </div>
+  <div class="tab-nav" id="tabNav"></div>
+  <div id="tabContent"></div>
+</div>
+
+<!-- ═══ FOOTER ══════════════════════════════════════════════════ -->
+<footer>
+  <div class="fstat">🔧 <strong>19 tools</strong> mapped</div>
+  <div class="fstat">⚠️ <strong>Gaps &amp; opportunities</strong> in every phase</div>
+  <div class="fstat">🤖 <strong>AI/Claude/MCP</strong> use cases across all 4 phases</div>
+  <div class="fsrc">Chief Martec 2025 · Demand Gen Report · demandDrive 2026 · revlogic 2026 · heyreach.io 2026 · MOps-Apalooza 2025 · Growth Unhinged</div>
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════════
+   DATA
+═══════════════════════════════════════════════════════════════ */
+const PHASES = [
+  {
+    id: 1,
+    color: '#4f8ef7',
+    icon: '📐',
+    name: 'Plan &\nOrchestrate',
+    subtitle: 'Strategy, intake, campaign planning, project management & MarTech governance',
+    categories: [
+      {
+        name: 'Campaign & Project Mgmt',
+        tools: [
+          { name: 'Airtable',    tag: 'core',  desc: 'Campaign intake, creative briefs, launch calendar, program tracking, run-of-show for events' },
+          { name: 'Workato',     tag: 'core',  desc: 'Automation of intake → program creation workflows; approval routing between Airtable, Marketo, SFDC' },
+          { name: 'Confluence',  tag: 'core',  desc: 'SOPs, naming conventions, playbooks, onboarding docs, integration diagrams' },
+          { name: 'Google Docs/Slides', tag: 'core', desc: 'Campaign briefs, stakeholder decks, planning docs' },
+          { name: 'Figma',       tag: 'core',  desc: 'Creative design, ad templates, landing page mockups, brand assets' },
+        ]
+      },
+      {
+        name: 'Content & Asset Management',
+        tools: [
+          { name: 'Contentful',  tag: 'core',  desc: 'Headless CMS for web content, landing pages, product pages' },
+          { name: 'Google Sheets', tag: 'core', desc: 'Budget planning, media spend tracking, ad-hoc data handoffs' },
+        ]
+      },
+      {
+        name: 'MarTech Governance',
+        tools: [
+          { name: 'Salesforce',  tag: 'cross', desc: 'System of record; field governance, data standards, territory definitions' },
+          { name: 'Marketo',     tag: 'cross', desc: 'Program template library, naming conventions, scoring model governance' },
+          { name: 'Workato',     tag: 'cross', desc: 'Integration recipe management, error monitoring, stack orchestration layer' },
+        ]
+      }
+    ],
+    gaps: [
+      { type: 'gap', text: 'No formal stack governance process or renewal calendar — tool sprawl risk without a central SaaS inventory owner.' },
+      { type: 'gap', text: 'Campaign intake → Marketo program creation is partially automated via Workato but still requires manual QA steps.' },
+      { type: 'opp', text: 'Airtable as a full "Campaign OS": intake → brief → asset tracking → launch checklist → post-mortem, all in one base.' },
+      { type: 'opp', text: 'Claude Code can auto-generate Marketo field documentation and Workato recipe inventories from API calls — removing manual upkeep.' },
+    ],
+    trends: [
+      { type: 'now',    text: 'Campaign OS model: Single Airtable/Notion base as the source of truth for all campaign work replaces scattered docs and Slack threads (MOps-Apalooza 2025).' },
+      { type: 'now',    text: 'Tiered SLA frameworks (T1 = 5 days, T2 = 2 weeks) becoming standard in mature MOps orgs for predictable launch velocity.' },
+      { type: 'now',    text: 'Stack consolidation vs. best-of-breed tension: leading teams are simplifying and integrating rather than adding new tools — "stop adding, start connecting" (demandDrive 2026).' },
+      { type: 'future', text: 'Self-documenting stacks: AI agents read integrations and auto-update Confluence documentation continuously — no human maintenance.' },
+    ],
+    ai: [
+      { badges: ['mcp','agent'], text: 'New Airtable intake record → Claude reads brief via MCP → auto-populates UTM parameters, Marketo program settings, asset checklist, and routes for approval.' },
+      { badges: ['code'],        text: 'Claude Code builds Airtable→Marketo scaffolding: generates Workato recipes from campaign template specs, reducing setup from hours to minutes.' },
+      { badges: ['agent'],       text: 'Pre-launch QA agent: Claude audits Marketo program before go-live — checks tokens, suppression lists, UTMs, and smart list logic. Flags issues to Slack.' },
+    ]
+  },
+  {
+    id: 2,
+    color: '#29c4a0',
+    icon: '🧬',
+    name: 'Data &\nIntelligence',
+    subtitle: 'ICP definition, data enrichment, audience building, lead routing & scoring foundation',
+    categories: [
+      {
+        name: 'Data Warehouse & BI',
+        tools: [
+          { name: 'Snowflake',   tag: 'core',  desc: 'Unified data warehouse — marketing, sales, product, and CS data; backbone for all reporting and AI workflows' },
+          { name: 'Sigma',       tag: 'core',  desc: 'Self-serve BI and dashboards connected directly to Snowflake; marketing and pipeline reporting' },
+        ]
+      },
+      {
+        name: 'Enrichment & ICP',
+        tools: [
+          { name: 'Clay',        tag: 'core',  desc: 'Waterfall data enrichment, ICP scoring, contact/account data append; pre-routing enrichment workflows' },
+          { name: 'Salesforce',  tag: 'cross', desc: 'Account/contact source of truth; TAM segmentation, firmographic storage, territory definitions' },
+          { name: 'LinkedIn',    tag: 'cross', desc: 'Firmographic signals, audience targeting inputs, job change triggers for Clay workflows' },
+        ]
+      },
+      {
+        name: 'Lead Routing & Lifecycle',
+        tools: [
+          { name: 'LeanData',    tag: 'core',  desc: 'Lead-to-account matching, territory-based routing, round-robin assignment, routing analytics' },
+          { name: 'Workato',     tag: 'cross', desc: 'Marketo↔SFDC lifecycle sync, recycled lead programs, routing trigger automation' },
+          { name: 'Marketo',     tag: 'cross', desc: 'Lead scoring model, lifecycle stage transitions, MQL thresholds, program membership' },
+        ]
+      }
+    ],
+    gaps: [
+      { type: 'gap',  text: 'No intent data provider (6sense, Bombora, G2). Missing buying signals before leads enter the funnel — blind spot for in-market accounts.' },
+      { type: 'gap',  text: 'No SLA monitoring dashboard — leads aging past response SLA aren\'t surfaced in real-time to SDR managers.' },
+      { type: 'opp',  text: 'Snowflake + Clay pipeline: warehouse-native ICP enrichment without a CDP. Product usage signals + firmographics = smarter scoring.' },
+      { type: 'opp',  text: 'LeanData routing logs → Snowflake → Sigma: real-time lead routing quality and SLA compliance dashboard.' },
+    ],
+    trends: [
+      { type: 'now',    text: 'Warehouse-native enrichment replacing point CDPs at mid-market scale — Snowflake→Clay→Marketo is the new standard data pipeline.' },
+      { type: 'now',    text: 'Composite lead scoring: behavioral + firmographic + product usage signals vs. simple point models (MOps-Apalooza top priority 2025).' },
+      { type: 'now',    text: 'Signal-based selling is now standard: tools trigger outreach from buying signals (hiring spikes, funding rounds, tech changes) not static firmographics (heyreach.io 2026).' },
+      { type: 'now',    text: 'Warehouse-first federation: GTM stacks built on inputs → storage → capabilities → federation. Stack flexibility = ability to build and stream audiences to any destination without data lock-in.' },
+      { type: 'future', text: 'AI-native routing: Claude agents read account context, territory rules, and rep capacity to dynamically assign leads — no static rule sets.' },
+    ],
+    ai: [
+      { badges: ['mcp','claude'], text: 'Snowflake MCP → Claude auto-generates weekly ICP drift reports: flags accounts moving in/out of ICP, surfaces top expansion signals.' },
+      { badges: ['code'],         text: 'Claude Code builds a Python pipeline: Snowflake product signals → Clay enrichment → Salesforce account score update. Zero manual CSV exports.' },
+      { badges: ['agent'],        text: 'SFDC MCP: Claude detects leads stuck in lifecycle stages >7 days, drafts Slack alerts for SDR managers with full context and recommended action.' },
+    ]
+  },
+  {
+    id: 3,
+    color: '#e0735a',
+    icon: '⚡',
+    name: 'Engage &\nActivate',
+    subtitle: 'Campaign execution, demand gen, ABM, events, customer marketing & lifecycle programs',
+    categories: [
+      {
+        name: 'Marketing Automation & Email',
+        tools: [
+          { name: 'Marketo',     tag: 'core',  desc: 'Email campaigns, engagement programs, nurture tracks, smart lists, A/B testing, lifecycle programs' },
+          { name: 'Workato',     tag: 'cross', desc: 'Cross-system triggers: event check-ins, form fills, enrichment completed → Marketo program actions' },
+        ]
+      },
+      {
+        name: 'ABM & Paid',
+        tools: [
+          { name: 'RollWorks',   tag: 'core',  desc: 'ABM display ads, account targeting, site retargeting, intent-based ad activation' },
+          { name: 'LinkedIn',    tag: 'cross', desc: 'Sponsored content, lead gen forms, matched audiences, account-based campaigns' },
+        ]
+      },
+      {
+        name: 'Events & Field Marketing',
+        tools: [
+          { name: 'Cvent',       tag: 'core',  desc: 'Large-scale event registration, logistics, hotel blocks, badge management, enterprise events' },
+          { name: 'Splash',      tag: 'core',  desc: 'Branded event pages, virtual/hybrid events, field events, on-site check-in' },
+          { name: 'Marketo',     tag: 'cross', desc: 'Event program setup, pre/post nurture, attendee lifecycle tracking, campaign member status' },
+          { name: 'Salesforce',  tag: 'cross', desc: 'Campaign member tracking, event-influenced pipeline, opportunity association' },
+        ]
+      },
+      {
+        name: 'Customer Marketing & Retention',
+        tools: [
+          { name: 'Gainsight',   tag: 'core',  desc: 'Customer health scores, CSM workflows, renewal alerts, QBR tracking, expansion signals' },
+          { name: 'Insided / Gainsight CC', tag: 'core', desc: 'Customer community, product forums, engagement tracking, knowledge base' },
+          { name: 'Marketo',     tag: 'cross', desc: 'Customer nurture programs, expansion campaigns, onboarding sequences, re-engagement' },
+          { name: 'Salesforce',  tag: 'cross', desc: 'Renewal tracking, expansion opportunities, account health visibility for CS and Marketing' },
+        ]
+      },
+      {
+        name: 'Web & Digital',
+        tools: [
+          { name: 'Contentful',  tag: 'cross', desc: 'Landing page delivery for campaigns; content syndication to digital channels' },
+          { name: 'Google Analytics / GTM', tag: 'core', desc: 'Web traffic, channel performance, form conversion tracking, tag management' },
+        ]
+      }
+    ],
+    gaps: [
+      { type: 'gap',  text: 'No conversational marketing tool (Qualified, Drift). Missing real-time website visitor engagement for in-market accounts.' },
+      { type: 'gap',  text: 'Post-event follow-up is manual — no systematic hot/warm/cold attendee segmentation driving immediate Marketo nurture.' },
+      { type: 'gap',  text: 'Gainsight health scores not feeding back into Marketo for dynamic customer segmentation — CS and Marketing operate in silos.' },
+      { type: 'opp',  text: 'Workato bridge: Splash/Cvent check-in → Marketo campaign member status → SFDC in real-time. Eliminate manual post-event uploads.' },
+      { type: 'opp',  text: 'Gainsight→Marketo integration: health score drops auto-trigger Marketing re-engagement programs without CSM intervention.' },
+    ],
+    trends: [
+      { type: 'now',    text: 'Events as pipeline acceleration: attendee-to-opportunity velocity becoming a core MOps KPI, not just a brand awareness metric (2025).' },
+      { type: 'now',    text: 'Customer marketing as a revenue function: expansion pipeline from Marketing-sourced programs tracked separately from CS-led renewal.' },
+      { type: 'now',    text: 'Conversational AI on websites moving from "nice to have" to standard: real-time web visitor engagement is now table stakes for mid-market B2B (MOps-Apalooza 2025).' },
+      { type: 'future', text: 'Agentic demand gen: AI drafts, tests, and iterates email/ad copy with human approval gates — humans set strategy, agents execute.' },
+    ],
+    ai: [
+      { badges: ['mcp','agent'], text: 'Post-event: Cvent attendance data → Workato → Claude segments attendees by engagement → writes 3 personalized email variants per segment, loads into Marketo.' },
+      { badges: ['agent'],       text: 'Gainsight health score drop → Workato webhook → Claude reads SFDC account context → drafts CSM-ready re-engagement talking points to Slack.' },
+      { badges: ['code'],        text: 'Claude Code builds Splash webhook → Marketo API: real-time check-in → program member status sync. Replaces post-event manual CSV upload process.' },
+    ]
+  },
+  {
+    id: 4,
+    color: '#b07ef8',
+    icon: '📡',
+    name: 'Measure &\nOptimize',
+    subtitle: 'Attribution, pipeline reporting, performance analytics, spend optimization & continuous improvement',
+    categories: [
+      {
+        name: 'Attribution & Revenue Analytics',
+        tools: [
+          { name: 'RampMetrics', tag: 'core',  desc: 'Multi-touch attribution modeling, marketing influence on pipeline, channel ROI reporting' },
+          { name: 'Salesforce',  tag: 'cross', desc: 'Campaign influence reports, pipeline by source, funnel stage tracking, opportunity attribution' },
+          { name: 'Marketo',     tag: 'cross', desc: 'Email/program performance, revenue cycle explorer, engagement scoring, A/B results' },
+        ]
+      },
+      {
+        name: 'Business Intelligence & Dashboards',
+        tools: [
+          { name: 'Sigma',       tag: 'cross', desc: 'Self-serve BI dashboards; blend RampMetrics + SFDC + product usage data in one view via Snowflake' },
+          { name: 'Snowflake',   tag: 'cross', desc: 'Single source of truth for all GTM data; powers all downstream analytics and AI workflows' },
+          { name: 'Google Analytics', tag: 'cross', desc: 'Web channel performance, traffic source analysis, conversion funnel tracking' },
+        ]
+      },
+      {
+        name: 'Channel Performance',
+        tools: [
+          { name: 'RollWorks',   tag: 'cross', desc: 'ABM ad performance, account-level engagement metrics, pipeline influenced by display' },
+          { name: 'LinkedIn',    tag: 'cross', desc: 'Paid campaign analytics, lead gen form performance, audience reach reporting' },
+          { name: 'Google Analytics / GTM', tag: 'cross', desc: 'Tag-based tracking, UTM attribution, goal conversion reporting across web properties' },
+        ]
+      }
+    ],
+    gaps: [
+      { type: 'gap',  text: 'RampMetrics + Sigma may have overlapping attribution reporting — needs an agreed source of truth for pipeline influence across GTM.' },
+      { type: 'gap',  text: 'No Marketing Mix Modeling (MMM) capability — can\'t optimize budget allocation across paid, events, and organic at a portfolio level.' },
+      { type: 'risk', text: 'Traditional attribution relying on email opens/clicks is increasingly inaccurate due to privacy changes (iOS, cookie deprecation). Needs micro-behavior signals.' },
+      { type: 'opp',  text: 'Snowflake as attribution backbone: pipe RampMetrics data into Snowflake so Sigma can blend it with product usage + CS health for a true full-funnel view.' },
+    ],
+    trends: [
+      { type: 'now',    text: 'Attribution is now a "decision dependency" — CFOs and boards use it for budget allocation, not just marketing reporting (Demand Gen Report 2025).' },
+      { type: 'now',    text: '"Useful signals, not more visibility" is the 2026 differentiator — dashboards are table stakes; the edge is operationalizing insights into automated action (revlogic 2026).' },
+      { type: 'now',    text: 'Predictive attribution replacing rule-based models: connecting micro-behaviors (session depth, content type) to revenue outcomes is the new standard.' },
+      { type: 'future', text: 'Natural language reporting: "What drove pipeline last quarter?" → Claude queries Snowflake and returns plain-English executive narrative with recommendations.' },
+    ],
+    ai: [
+      { badges: ['mcp','claude'], text: 'Snowflake MCP → Claude generates executive pipeline attribution narrative weekly: what drove pipeline, what underperformed, recommended budget shifts.' },
+      { badges: ['code'],         text: 'Claude Code builds parameterized Sigma dashboard templates for each campaign type, pre-wired to Snowflake — deployable in minutes vs. hours.' },
+      { badges: ['agent'],        text: 'Weekly MOps digest agent: Claude pulls Marketo + SFDC + Sigma data, writes a 5-bullet performance summary, posts to Slack every Monday morning.' },
+    ]
+  }
+];
+
+/* ═══════════════════════════════════════════════════════════════
+   RENDER PIPELINE
+═══════════════════════════════════════════════════════════════ */
+let activePhase = null;
+let activeTab   = {};
+
+function renderPipeline() {
+  const pipe = document.getElementById('pipeline');
+  pipe.innerHTML = '';
+  PHASES.forEach((p, i) => {
+    if (i > 0) {
+      const conn = document.createElement('div');
+      conn.className = 'connector';
+      conn.innerHTML = `<div class="conn-line"></div><div class="conn-arrow"></div>`;
+      pipe.appendChild(conn);
+    }
+    const toolCount = p.categories.reduce((n, c) => n + c.tools.length, 0);
+    const catNames  = p.categories.map(c => c.name);
+
+    const el = document.createElement('div');
+    el.className = 'phase';
+    el.id = `phase-${p.id}`;
+    el.style.setProperty('--phase-color', p.color);
+    el.onclick = () => togglePhase(p.id);
+    el.innerHTML = `
+      <div class="phase-accent" style="background:${p.color}"></div>
+      <div class="phase-inner">
+        <div class="phase-num">Phase 0${p.id}</div>
+        <span class="phase-icon">${p.icon}</span>
+        <div class="phase-name">${p.name.replace('\n','<br>')}</div>
+        <div class="phase-subtitle">${p.subtitle.split(',').slice(0,2).join(',')}</div>
+        <div class="phase-cats">
+          ${catNames.map(n => `<span class="cat-chip">${n.toLowerCase()}</span>`).join('')}
+        </div>
+        <div class="phase-tool-count"><span>${toolCount}</span> tools mapped</div>
+      </div>
+    `;
+    pipe.appendChild(el);
+  });
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   TOGGLE / OPEN / CLOSE
+═══════════════════════════════════════════════════════════════ */
+function togglePhase(id) {
+  if (activePhase === id) { closePanel(); return; }
+  openPanel(id);
+}
+
+function openPanel(id) {
+  const p = PHASES.find(x => x.id === id);
+  if (!p) return;
+
+  if (activePhase) document.getElementById(`phase-${activePhase}`)?.classList.remove('open');
+  document.getElementById(`phase-${id}`).classList.add('open');
+  activePhase = id;
+
+  // Header
+  document.getElementById('panelBar').style.background   = p.color;
+  document.getElementById('panelIcon').textContent        = p.icon;
+  document.getElementById('panelTitle').textContent       = p.name.replace('\n',' / ');
+  document.getElementById('panelSub').textContent         = p.subtitle;
+
+  // Tabs
+  const tabs = ['Tools', 'Gaps & Opportunities', 'Industry Trends', 'AI / Claude / MCP'];
+  const nav  = document.getElementById('tabNav');
+  nav.style.setProperty('--phase-color', p.color);
+  nav.innerHTML = tabs.map((t, i) => `
+    <button class="tab-btn${i===0?' active':''}" onclick="switchTab(${id},${i},'${t}')" data-tab="${i}">${t}</button>
+  `).join('');
+  activeTab[id] = 0;
+
+  renderTabContent(id, 0);
+
+  const panel = document.getElementById('detailPanel');
+  panel.classList.add('open');
+  panel.style.setProperty('--phase-color', p.color);
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function closePanel() {
+  document.getElementById('detailPanel').classList.remove('open');
+  if (activePhase) document.getElementById(`phase-${activePhase}`)?.classList.remove('open');
+  activePhase = null;
+}
+
+function switchTab(phaseId, tabIdx) {
+  activeTab[phaseId] = tabIdx;
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i===tabIdx));
+  renderTabContent(phaseId, tabIdx);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   RENDER TAB CONTENT
+═══════════════════════════════════════════════════════════════ */
+function renderTabContent(phaseId, tabIdx) {
+  const p   = PHASES.find(x => x.id === phaseId);
+  const box = document.getElementById('tabContent');
+
+  if (tabIdx === 0) {
+    // ── TOOLS ──
+    const subcatsHtml = p.categories.map((cat, ci) => {
+      const toolsHtml = cat.tools.map(t => `
+        <div class="tool-card">
+          <div class="tool-top">
+            <div class="tool-dot" style="background:${p.color}"></div>
+            <div class="tool-name">${t.name}</div>
+            <span class="tool-tag ${t.tag}">${t.tag === 'core' ? 'primary' : 'cross-phase'}</span>
+          </div>
+          <div class="tool-desc">${t.desc}</div>
+        </div>
+      `).join('');
+      return `
+        <div class="subcat expanded" id="sc-${phaseId}-${ci}">
+          <div class="subcat-head" onclick="toggleSubcat('sc-${phaseId}-${ci}')">
+            <div class="subcat-toggle">−</div>
+            <div class="subcat-name">${cat.name}</div>
+            <div class="subcat-count">${cat.tools.length} tools</div>
+          </div>
+          <div class="subcat-body">${toolsHtml}</div>
+        </div>`;
+    }).join('');
+    box.innerHTML = `<div class="tab-body active"><div class="subcats">${subcatsHtml}</div></div>`;
+
+  } else if (tabIdx === 1) {
+    // ── GAPS ──
+    const html = p.gaps.map(g => `
+      <div class="gap-card">
+        <div class="gap-type ${g.type}">${g.type === 'gap' ? '⚠ Gap' : g.type === 'opp' ? '💡 Opportunity' : '⛔ Risk'}</div>
+        <div class="gap-text">${g.text}</div>
+      </div>`).join('');
+    box.innerHTML = `<div class="tab-body active"><div class="gaps-grid">${html}</div></div>`;
+
+  } else if (tabIdx === 2) {
+    // ── TRENDS ──
+    const html = p.trends.map(t => `
+      <div class="trend-item">
+        <span class="trend-badge ${t.type}">${t.type === 'now' ? '▶ Now' : '◈ Emerging'}</span>
+        <div class="trend-text">${t.text}</div>
+      </div>`).join('');
+    box.innerHTML = `<div class="tab-body active"><div class="trends-list">${html}</div></div>`;
+
+  } else if (tabIdx === 3) {
+    // ── AI ──
+    const badgeMap = { mcp:'ab-mcp', agent:'ab-agent', code:'ab-code', claude:'ab-claude' };
+    const badgeLabel = { mcp:'⬡ MCP', agent:'⚡ Agent', code:'</> Claude Code', claude:'✦ Claude' };
+    const html = p.ai.map(a => {
+      const bdg = a.badges.map(b => `<span class="ai-badge ${badgeMap[b]}">${badgeLabel[b]}</span>`).join('');
+      return `<div class="ai-item"><div class="ai-badges">${bdg}</div><div class="ai-text">${a.text}</div></div>`;
+    }).join('');
+    box.innerHTML = `<div class="tab-body active"><div class="ai-list">${html}</div></div>`;
+  }
+}
+
+function toggleSubcat(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.classList.toggle('expanded');
+  const btn = el.querySelector('.subcat-toggle');
+  if (btn) btn.textContent = el.classList.contains('expanded') ? '−' : '+';
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════════════════════════ */
+renderPipeline();
+</script>
+</body>
+</html>
