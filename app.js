@@ -95,8 +95,11 @@ function openPanel(id) {
   document.getElementById('panelTitle').textContent = p.name.replace('\n', ' / ');
   document.getElementById('panelSub').textContent = p.subtitle;
 
-  // Tabs
-  var tabs = ['Tools', 'Gaps & Opportunities', 'Industry Trends', 'AI / Claude / MCP'];
+  // Tabs — shorter labels on mobile
+  var isMobile = window.matchMedia('(max-width: 768px)').matches;
+  var tabs = isMobile
+    ? ['Tools', 'Gaps', 'Trends', 'AI / MCP']
+    : ['Tools', 'Gaps & Opportunities', 'Industry Trends', 'AI / Claude / MCP'];
   var nav = document.getElementById('tabNav');
   nav.style.setProperty('--phase-color', p.color);
   nav.innerHTML = tabs.map(function(t, i) {

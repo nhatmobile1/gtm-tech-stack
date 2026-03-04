@@ -6,7 +6,7 @@
 const PHASES = [
   {
     id: 1,
-    color: '#4f8ef7',
+    color: '#3d73cc',
     icon: '📐',
     name: 'Plan &\nOrchestrate',
     subtitle: 'Strategy, intake, campaign planning, project management & MarTech governance',
@@ -57,7 +57,7 @@ const PHASES = [
   },
   {
     id: 2,
-    color: '#29c4a0',
+    color: '#1f8f74',
     icon: '🧬',
     name: 'Data &\nIntelligence',
     subtitle: 'ICP definition, data enrichment, audience building, lead routing & scoring foundation',
@@ -97,17 +97,19 @@ const PHASES = [
       { type: 'now',    text: 'Composite lead scoring: behavioral + firmographic + product usage signals vs. simple point models (MOps-Apalooza top priority 2025).' },
       { type: 'now',    text: 'Signal-based selling is now standard: tools trigger outreach from buying signals (hiring spikes, funding rounds, tech changes) not static firmographics (heyreach.io 2026).' },
       { type: 'now',    text: 'Warehouse-first federation: GTM stacks built on inputs → storage → capabilities → federation. Stack flexibility = ability to build and stream audiences to any destination without data lock-in.' },
+      { type: 'now',    text: 'Waterfall enrichment is the new standard: sequential multi-provider append (Clay → fallback providers) replaces single-source data — no single vendor has complete coverage (coldIQ 2026).' },
       { type: 'future', text: 'AI-native routing: Claude agents read account context, territory rules, and rep capacity to dynamically assign leads — no static rule sets.' },
     ],
     ai: [
       { badges: ['mcp','claude'], text: 'Snowflake MCP → Claude auto-generates weekly ICP drift reports: flags accounts moving in/out of ICP, surfaces top expansion signals.' },
       { badges: ['code'],         text: 'Claude Code builds a Python pipeline: Snowflake product signals → Clay enrichment → Salesforce account score update. Zero manual CSV exports.' },
       { badges: ['agent'],        text: 'SFDC MCP: Claude detects leads stuck in lifecycle stages >7 days, drafts Slack alerts for SDR managers with full context and recommended action.' },
+      { badges: ['mcp','agent'],   text: 'Waterfall enrichment monitor: Claude tracks Clay enrichment fill rates via MCP, flags coverage drops by provider, and recommends provider reordering to maximize match rates.' },
     ]
   },
   {
     id: 3,
-    color: '#e0735a',
+    color: '#c06047',
     icon: '⚡',
     name: 'Engage &\nActivate',
     subtitle: 'Campaign execution, demand gen, ABM, events, customer marketing & lifecycle programs',
@@ -173,7 +175,7 @@ const PHASES = [
   },
   {
     id: 4,
-    color: '#b07ef8',
+    color: '#7e5ab8',
     icon: '📡',
     name: 'Measure &\nOptimize',
     subtitle: 'Attribution, pipeline reporting, performance analytics, spend optimization & continuous improvement',
