@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GTM / MOps Tech Stack — Benchling 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@300;400;500&family=Lato:wght@300;400;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<a href="#pipeline-section" class="skip-link">Skip to pipeline</a>
+
+<!-- ═══ HEADER ═══ -->
+<header>
+  <div class="header-left">
+    <div class="eyebrow">Benchling · Marketing Systems & Operations</div>
+    <h1>GTM / <em>MOps</em> Tech Stack</h1>
+    <div class="header-meta">
+      <span class="pill active">2025–2026</span>
+      <span class="pill">4 Phases</span>
+      <span class="pill">19 Tools</span>
+      <span class="pill">Click phase to expand</span>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="legend-row">
+      <div class="leg"><div class="leg-dot" style="background:#4f8ef7"></div>Plan &amp; Orchestrate</div>
+      <div class="leg"><div class="leg-dot" style="background:#29c4a0"></div>Data &amp; Intelligence</div>
+      <div class="leg"><div class="leg-dot" style="background:#e0735a"></div>Engage &amp; Activate</div>
+      <div class="leg"><div class="leg-dot" style="background:#b07ef8"></div>Measure &amp; Optimize</div>
+    </div>
+    <div class="legend-hint">Sources: Chief Martec · Demand Gen Report · demandDrive 2026 · revlogic 2026 · MOps-Apalooza 2025</div>
+  </div>
+</header>
+
+<!-- ═══ AI ORCHESTRATION LAYER BANNER ═══ -->
+<div class="mcp-bar">
+  <div class="mcp-bar-top">
+    <div class="mcp-label">⬡ AI Orchestration Layer — runs across all 4 phases</div>
+    <div class="mcp-chain">
+      <div class="mc mc-core">Claude</div><div class="mc-arr">→</div>
+      <div class="mc mc-mcp">MCP Server</div><div class="mc-arr">⇄</div>
+      <div class="mc mc-tool">Marketo</div><div class="mc-arr">+</div>
+      <div class="mc mc-tool">Salesforce</div><div class="mc-arr">+</div>
+      <div class="mc mc-tool">Snowflake</div><div class="mc-arr">+</div>
+      <div class="mc mc-tool">Clay</div><div class="mc-arr">+</div>
+      <div class="mc mc-tool">Airtable</div>
+    </div>
+  </div>
+  <div class="mcp-agents-row">
+    <div class="mcp-agent-type">
+      <span class="agent-badge listener">👂 Listener Agent</span>
+      <span class="agent-desc">Monitors signals: intent spikes, lifecycle stalls, health score drops, routing failures</span>
+    </div>
+    <div class="mcp-agent-sep">→</div>
+    <div class="mcp-agent-type">
+      <span class="agent-badge topic">💡 Topic Agent</span>
+      <span class="agent-desc">Generates content briefs, segment hypotheses, and ICP drift summaries from signals</span>
+    </div>
+    <div class="mcp-agent-sep">→</div>
+    <div class="mcp-agent-type">
+      <span class="agent-badge creator">✦ Creator Agent</span>
+      <span class="agent-desc">Drafts emails, talking points, Sigma dashboards, Workato recipes — ready for human approval</span>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ MAIN CONTENT ═══ -->
+<main id="pipeline-section">
+  <div class="pipeline-wrap">
+    <div class="pipeline" id="pipeline"></div>
+  </div>
+
+  <div class="detail" id="detailPanel">
+    <div class="panel-head" id="panelHead">
+      <div class="panel-icon" id="panelIcon"></div>
+      <div>
+        <div class="panel-title" id="panelTitle"></div>
+        <div class="panel-subtitle" id="panelSub"></div>
+      </div>
+      <button class="panel-close" id="panelClose" aria-label="Close detail panel">✕ close</button>
+    </div>
+    <nav aria-label="Phase details">
+      <div class="tab-nav" id="tabNav"></div>
+    </nav>
+    <div id="tabContent"></div>
+  </div>
+</main>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="fstat">🔧 <strong>19 tools</strong> mapped</div>
+  <div class="fstat">⚠️ <strong>Gaps &amp; opportunities</strong> in every phase</div>
+  <div class="fstat">🤖 <strong>AI/Claude/MCP</strong> use cases across all 4 phases</div>
+  <div class="fsrc">Chief Martec 2025 · Demand Gen Report · demandDrive 2026 · revlogic 2026 · heyreach.io 2026 · MOps-Apalooza 2025 · Growth Unhinged</div>
+</footer>
+
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
